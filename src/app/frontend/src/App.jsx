@@ -3,7 +3,13 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-const url = "http://localhost:8000/predict"
+const url = "https://pierniol-asdf.hf.space/predict"
+const HF_TOKEN = import.meta.env.VITE_HF_TOKEN
+
+const getHeaders = () => ({
+  'Authorization': `Bearer ${HF_TOKEN}`,
+  'Content-Type': 'application/json'
+})
 
 // ask it to predict please
 function askPrediction(file) {
@@ -12,6 +18,7 @@ function askPrediction(file) {
 
   return fetch(url, {
     method: "POST",
+    headers: getHeaders(),
     body: formData
   })
   .then(response => response.json())
